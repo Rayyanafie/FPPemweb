@@ -5,7 +5,7 @@ include('conn.php');
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../FP/Asset/history.css">
+    <link rel="stylesheet" href="Asset/history.css">
     <link href="https://fonts.googleapis.com/css?family=Gelasio" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Gabriela" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Newsreader" rel="stylesheet" />
@@ -30,36 +30,36 @@ include('conn.php');
                     </select>
                 </li>
                 <li>
-                    <a href="#">
-                        <img src="../FP/Asset/home (3) 1.png" alt="" class="Icon">
+                    <a href="index.php">
+                        <img src="Asset/home (3) 1.png" alt="" class="Icon">
                         <span class="Description">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <img src="../FP/Asset/writing 1.png" alt="" class="Icon">
+                    <a href="desc.php">
+                        <img src="Asset/writing 1.png" alt="" class="Icon">
                         <span class="Description">Description</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <img src="../FP/Asset/notification (1) 1.png" alt="" class="Icon">
+                    <a href="rem.php">
+                        <img src="Asset/notification (1) 1.png" alt="" class="Icon">
                         <span class="Description">Reminder</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo "History.php"; ?>">
-                        <img src="../FP/Asset/sand-watch 1.png" alt="" class="Icon">
+                        <img src="Asset/sand-watch 1.png" alt="" class="Icon">
                         <span class="Description">History</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img src="../FP/Asset/Star 2.png" alt="" class="Icon">
+                        <img src="Asset/Star 2.png" alt="" class="Icon">
                         <span class="Description">Priority</span>
                     </a>
                 </li>
-                <li class="logout">
+                <li class="logout.php">
                     <a href="#">
                         <div class="LogOut">Log Out</div>
                     </a>

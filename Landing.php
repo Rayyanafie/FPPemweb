@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Successful login
     $row = mysqli_fetch_assoc($result);
     $_SESSION['Username'] = $row['Username'];
-    header("Location: home.php");
+    header("Location: index.php");
     exit;
   } else {
     // Incorrect username or password
