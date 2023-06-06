@@ -1,11 +1,16 @@
 <?php
 include('conn.php');
+session_start();
+if (!isset($_SESSION['ID'])) {
+    header("Location: Landing.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../FP/Asset/history.css">
+    <link rel="stylesheet" href="Asset/history.css">
     <link href="https://fonts.googleapis.com/css?family=Gelasio" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Gabriela" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Newsreader" rel="stylesheet" />
@@ -27,42 +32,51 @@ include('conn.php');
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
                         <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
                     </select>
                 </li>
                 <li>
-                    <a href="#">
-                        <img src="../FP/Asset/home (3) 1.png" alt="" class="Icon">
+                    <a href="index.php">
+                        <img src="Asset/home (3) 1.png" alt="" class="Icon">
                         <span class="Description">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <img src="../FP/Asset/writing 1.png" alt="" class="Icon">
+                    <a href="desc.php">
+                        <img src="Asset/writing 1.png" alt="" class="Icon">
                         <span class="Description">Description</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <img src="../FP/Asset/notification (1) 1.png" alt="" class="Icon">
+                    <a href="rem.php">
+                        <img src="Asset/notification (1) 1.png" alt="" class="Icon">
                         <span class="Description">Reminder</span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo "History.php"; ?>">
-                        <img src="../FP/Asset/sand-watch 1.png" alt="" class="Icon">
+                        <img src="Asset/sand-watch 1.png" alt="" class="Icon">
                         <span class="Description">History</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img src="../FP/Asset/Star 2.png" alt="" class="Icon">
+                        <img src="Asset/Star 2.png" alt="" class="Icon">
                         <span class="Description">Priority</span>
                     </a>
                 </li>
-                <li class="logout">
-                    <a href="#">
-                        <div class="LogOut">Log Out</div>
-                    </a>
+                <li class="logout.php">
+
+                    <div class="LogOut"><a href="#">Log Out</a></div>
+
                 </li>
             </ul>
         </div>
@@ -84,15 +98,16 @@ include('conn.php');
                 <div class="info">
                     <table>
                         <thead>
+                            <th>ID Tugas</th>
                             <th>Judul</th>
-                            <th>Deskrpsi</th>
-                            <th>Deadline</th>
+                            <th>Tanggal Selesai</th>
                             <th>Notes</th>
                         </thead>
                         <?php
                         //proses menampilkan data dari database:
                         //siapkan query SQL
-                        $query = "SELECT * FROM manajementugas.history";
+                        $idPengguna = $_SESSION['ID'];
+                        $query = "SELECT *from history where ID_Pengguna ='$idPengguna'";
                         $result = mysqli_query(connection(), $query);
                         ?>
 
@@ -102,7 +117,7 @@ include('conn.php');
                                     <?php echo $data['ID_History']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $data['ID_Tugas']; ?>
+                                    <?php echo $data['Judul']; ?>
                                 </td>
                                 <td>
                                     <?php echo $data['Tanggal']; ?>

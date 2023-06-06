@@ -1,0 +1,185 @@
+<?php
+include('conn.php');
+session_start();
+if (!isset($_SESSION['ID'])) {
+    header("Location: Landing.php");
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reminder</title>
+    <link rel="stylesheet" href="Asset/rem.css" />
+    <link href="https://fonts.googleapis.com/css?family=Gelasio" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Gabriela" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Newsreader" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="garis">
+            <div class="garis1"></div>
+            <div class="garis2"></div>
+        </div>
+        <div class="konten-container">
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <input type="text" name="search" id="search" placeholder="Search" />
+                    </li>
+                    <li>
+                        <select name="bulan" id="bulan">
+                            <option value="1">Januari</option>
+                            <option value="2">Februari</option>
+                            <option value="3">Maret</option>
+                        </select>
+                    </li>
+                    <li>
+                        <img src="Asset/home1.png" alt="" class="Icon" />
+                        <a href="index.php">
+                            <span class="Description">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <img src="Asset/writing1.png" alt="" class="Icon" />
+                        <a href="desc.php">
+                            <span class="Description">Description</span>
+                        </a>
+                    </li>
+                    <li>
+                        <img src="Asset/notification1.png" alt="" class="Icon" />
+                        <a href="rem.php">
+                            <span class="Description">Reminder</span>
+                        </a>
+                    </li>
+                    <li>
+                        <img src="Asset/sand-watch1.png" alt="" class="Icon" />
+                        <a href="History.php">
+                            <span class="Description">History</span>
+                        </a>
+                    </li>
+                    <li>
+                        <img src="Asset/Star2.png" alt="" class="Icon" />
+                        <a href="#">
+                            <span class="Description">Priority</span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="logout">
+                            <a href="logout.php">Log Out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="konten">
+                <div>
+                    <div class="header">
+                        <div class="dekor">
+                            <h1>Reminder</h1>
+                            <div class="dekor">
+                                <div class="lingkaran"></div>
+                                <div class="garis4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <form id="sortForm" method="POST" action="">
+                            <select id="sort" name="sort" class="sort"
+                                onchange="document.getElementById('sortForm').submit()">
+                                <option value=" "><b>Sort</b></option>
+                                <option value="date">By Date</option>
+                                <option value="label">By Label</option>
+                            </select>
+                            <select id="categoryFilter" name="categoryFilter" class="sort"
+                                onchange="document.getElementById('sortForm').submit()">
+                                <option value="">All Categories</option>
+                                <option value="C001">Rumah</option>
+                                <option value="C002">Kantor</option>
+                                <option value="C003">Kuliah</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <div class="describe-container">
+                    <?php
+                    // Proses menampilkan data dari database:
+                    // Siapkan query SQL
+                    $idPengguna = $_SESSION['ID'];
+                    $orderBy = isset($_POST['sort']) ? $_POST['sort'] : ''; // Mengambil nilai sort dari form
+                    $categoryFilter = isset($_POST['categoryFilter']) ? $_POST['categoryFilter'] : ''; // Mengambil nilai filter kategori dari form
+                    
+                    $query = "SELECT tugas.*, kategori.Nama_Kategori
+                                FROM Tugas
+                                INNER JOIN Kategori ON Tugas.ID_Kategori = Kategori.ID_Kategori
+                                WHERE Tugas.ID_Pengguna = '$idPengguna' and Status = 0 ";
+
+                    if ($categoryFilter != '') {
+                        $query .= " AND kategori.ID_Kategori = '$categoryFilter'";
+                    }
+
+                    if ($orderBy == 'date') {
+                        $query .= " ORDER BY tugas.Deadline";
+                    } elseif ($orderBy == 'label') {
+                        $query .= " ORDER BY tugas.ID_label";
+                    } else {
+                        $query .= " ORDER BY tugas.ID_Tugas"; // Jika tidak ada sort yang dipilih, tampilkan tanpa pengurutan
+                    }
+
+                    $result = mysqli_query(connection(), $query);
+                    ?>
+                    <table cellspacing="10">
+                        <form action="updatestatus.php" method="POST">
+                            <div class="grid-container">
+                                <?php while ($data = mysqli_fetch_array($result)): ?>
+                                    <?php
+                                    $datetime = new DateTime($data['Deadline']);
+                                    $tanggal = $datetime->format('Y-m-d');
+                                    $jam = $datetime->format('H:i:s');
+                                    $currentDateTime = new DateTime();
+                                    $isLate = ($datetime < $currentDateTime);
+                                    $gridItemClass = ($isLate) ? "grid-item-Late" : "grid-item";
+                                    ?>
+                                    <div class="<?php echo $gridItemClass; ?>">
+                                        <h1>
+                                            <?php echo $data['Judul']; ?>
+                                            <span class="submit">
+                                                <input type="checkbox" name="taskIds[]"
+                                                    value="<?php echo $data['ID_Tugas']; ?>" />
+                                            </span>
+                                            <span class="fa fa-star">
+                                                <img src="Asset/<?php echo "StarLabel" . $data['ID_label'] . ".png"; ?>"
+                                                    alt="">
+                                            </span>
+                                        </h1>
+                                        <div class="category">
+                                            <?php echo "Kategori: " . $data['Nama_Kategori']; ?>
+                                        </div>
+                                        <div class="date1">
+                                            <?php echo $tanggal; ?>
+                                        </div>
+                                        <div class="date2">
+                                            <?php echo $jam; ?>
+                                        </div>
+                                    </div>
+                                <?php endwhile ?>
+                            </div>
+                            <button type="submit" name="submit">Tandai Sudah Selesai</button>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="garis">
+            <div class="garis2"></div>
+            <div class="garis1"></div>
+        </div>
+    </div>
+</body>
+
+</html>
