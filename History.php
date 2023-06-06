@@ -32,6 +32,15 @@ if (!isset($_SESSION['ID'])) {
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
                         <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
                     </select>
                 </li>
                 <li>
@@ -89,8 +98,8 @@ if (!isset($_SESSION['ID'])) {
                 <div class="info">
                     <table>
                         <thead>
+                            <th>ID Tugas</th>
                             <th>Judul</th>
-                            <th>Deskrpsi</th>
                             <th>Tanggal Selesai</th>
                             <th>Notes</th>
                         </thead>
@@ -98,25 +107,25 @@ if (!isset($_SESSION['ID'])) {
                         //proses menampilkan data dari database:
                         //siapkan query SQL
                         $idPengguna = $_SESSION['ID'];
-                        $query = "SELECT * FROM history WHERE ID_Pengguna = '$idPengguna'";
+                        $query = "SELECT *from history where ID_Pengguna ='$idPengguna'";
                         $result = mysqli_query(connection(), $query);
                         ?>
 
                         <?php while ($data = mysqli_fetch_array($result)): ?>
-                        <tr>
-                            <td>
-                                <?php echo $data['ID_History']; ?>
-                            </td>
-                            <td>
-                                <?php echo $data['ID_Tugas']; ?>
-                            </td>
-                            <td>
-                                <?php echo $data['Tanggal']; ?>
-                            </td>
-                            <td>
-                                <?php echo $data['Catatan']; ?>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <?php echo $data['ID_History']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data['Judul']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data['Tanggal']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data['Catatan']; ?>
+                                </td>
+                            </tr>
                         <?php endwhile ?>
 
 
@@ -143,25 +152,25 @@ if (!isset($_SESSION['ID'])) {
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var popup = document.querySelector('.popup');
-        var popupDescription = document.getElementById('popup-description');
+        document.addEventListener('DOMContentLoaded', function () {
+            var popup = document.querySelector('.popup');
+            var popupDescription = document.getElementById('popup-description');
 
-        var tableCells = document.querySelectorAll('td');
+            var tableCells = document.querySelectorAll('td');
 
-        tableCells.forEach(function(cell) {
-            cell.addEventListener('click', function() {
-                var description = this.textContent;
-                popupDescription.textContent = description;
-                popup.style.display = 'block';
+            tableCells.forEach(function (cell) {
+                cell.addEventListener('click', function () {
+                    var description = this.textContent;
+                    popupDescription.textContent = description;
+                    popup.style.display = 'block';
+                });
+            });
+
+            var closeBtn = document.querySelector('.close-btn');
+            closeBtn.addEventListener('click', function () {
+                popup.style.display = 'none';
             });
         });
-
-        var closeBtn = document.querySelector('.close-btn');
-        closeBtn.addEventListener('click', function() {
-            popup.style.display = 'none';
-        });
-    });
     </script>
 </body>
 

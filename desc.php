@@ -1,5 +1,5 @@
 <?php
-include ('conn.php');
+include('conn.php');
 session_start();
 if (!isset($_SESSION['ID'])) {
     header("Location: Landing.php");
@@ -8,35 +8,35 @@ if (!isset($_SESSION['ID'])) {
 $idPengguna = $_SESSION['ID'];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['add'])) {
-    // Mengambil nilai yang dikirimkan melalui form
-    $judul = $_POST['judul'];
-    $deskripsi = $_POST['deskripsi'];
-    $deadline_date = $_POST['tanggal'];
-    $deadline_time = $_POST['waktu'];
-    $deadline = $deadline_date . ' ' . $deadline_time;
-    $category = $_POST['category'];
-    $label = $_POST['label'];
+        // Mengambil nilai yang dikirimkan melalui form
+        $judul = $_POST['judul'];
+        $deskripsi = $_POST['deskripsi'];
+        $deadline_date = $_POST['tanggal'];
+        $deadline_time = $_POST['waktu'];
+        $deadline = $deadline_date . ' ' . $deadline_time;
+        $category = $_POST['category'];
+        $label = $_POST['label'];
 
-    // Menyimpan data ke dalam tabel database, termasuk ID pengguna
-    $query = "INSERT INTO tugas (Judul, Deskripsi, Deadline,Status, ID_Kategori, ID_Label, ID_Pengguna)
+        // Menyimpan data ke dalam tabel database, termasuk ID pengguna
+        $query = "INSERT INTO tugas (Judul, Deskripsi, Deadline,Status, ID_Kategori, ID_Label, ID_Pengguna)
             VALUES ('$judul', '$deskripsi', '$deadline',0, '$category', '$label', '$idPengguna')";
-    $result = mysqli_query(connection(), $query);
+        $result = mysqli_query(connection(), $query);
     }
-    
-    if (isset($_POST['update'])) {
-    $tugas_id = $_POST['id_pengguna']; // ID tugas yang akan diupdate
-    $judul = $_POST['judul'];
-    $deskripsi = $_POST['deskripsi'];
-    $deadline_date = $_POST['tanggal'];
-    $deadline_time = $_POST['waktu'];
-    $deadline = $deadline_date . ' ' . $deadline_time;
-    $category = $_POST['category'];
-    $label = $_POST['label'];
 
-    // Mengupdate data pada tabel database berdasarkan ID tugas
-    $query = "UPDATE tugas SET Judul='$judul', Deskripsi='$deskripsi', Deadline='$deadline', Status=0, ID_Kategori='$category', ID_Label='$label'
+    if (isset($_POST['update'])) {
+        $tugas_id = $_POST['id_pengguna']; // ID tugas yang akan diupdate
+        $judul = $_POST['judul'];
+        $deskripsi = $_POST['deskripsi'];
+        $deadline_date = $_POST['tanggal'];
+        $deadline_time = $_POST['waktu'];
+        $deadline = $deadline_date . ' ' . $deadline_time;
+        $category = $_POST['category'];
+        $label = $_POST['label'];
+
+        // Mengupdate data pada tabel database berdasarkan ID tugas
+        $query = "UPDATE tugas SET Judul='$judul', Deskripsi='$deskripsi', Deadline='$deadline', Status=0, ID_Kategori='$category', ID_Label='$label'
             WHERE ID_Tugas='$tugas_id'";
-    $result = mysqli_query(connection(), $query);
+        $result = mysqli_query(connection(), $query);
     }
 }
 ?>
@@ -121,35 +121,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="addplan-text">Add Plan <b>+</b></div>
                     </button>
                 </div>
-                <?php 
-                  //proses menampilkan data dari database:
-                  //siapkan query SQL
+                <?php
+                //proses menampilkan data dari database:
+                //siapkan query SQL
                 $idPengguna = $_SESSION['ID'];
-                $query = "SELECT * FROM tugas WHERE ID_Pengguna = '$idPengguna'";
-                $result = mysqli_query(connection(),$query);
+                $query = "SELECT * FROM tugas WHERE ID_Pengguna = '$idPengguna' and Status = 0 ";
+                $result = mysqli_query(connection(), $query);
                 ?>
                 <div class="describe-container">
-                    <?php while($data = mysqli_fetch_array($result)): ?>
-                    <?php $datetime = new DateTime($data['Deadline']);
+                    <?php while ($data = mysqli_fetch_array($result)): ?>
+                        <?php $datetime = new DateTime($data['Deadline']);
                         $tanggal = $datetime->format('Y-m-d');
-                        $jam = $datetime->format('H:i:s');?>
-                    <div class="describe">
-                        <div>
-                            <h1><?php echo $data['Judul'];  ?></h1>
-                            <div class="isi"><?php echo $data['Deskripsi'];  ?></div>
-                            <div class="date1"><?php echo $tanggal;  ?></div>
-                            <div class="date2"><?php echo $jam;  ?></div>
-                            <button class="adduser"
-                                onclick="window.location.href='delete.php?idtugas=<?php echo $data['ID_Tugas']; ?>'">
-                                <div class="adduser-text">
-                                    Delete
+                        $jam = $datetime->format('H:i:s'); ?>
+                        <div class="describe">
+                            <div>
+                                <h1>
+                                    <?php echo $data['Judul']; ?>
+                                </h1>
+                                <div class="isi">
+                                    <?php echo $data['Deskripsi']; ?>
                                 </div>
-                            </button>
-                            <button class="update" onclick="showPopup2('<?php echo $data['ID_Tugas']; ?>')">
-                                <div class="update-text">Update</div>
-                            </button>
+                                <div class="date1">
+                                    <?php echo $tanggal; ?>
+                                </div>
+                                <div class="date2">
+                                    <?php echo $jam; ?>
+                                </div>
+                                <button class="adduser"
+                                    onclick="window.location.href='delete.php?idtugas=<?php echo $data['ID_Tugas']; ?>'">
+                                    <div class="adduser-text">
+                                        Delete
+                                    </div>
+                                </button>
+                                <button class="update" onclick="showPopup2('<?php echo $data['ID_Tugas']; ?>')">
+                                    <div class="update-text">Update</div>
+                                </button>
+                            </div>
                         </div>
-                    </div>
                     <?php endwhile ?>
                 </div>
 
@@ -236,29 +244,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script>
-    function showPopup() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("popup").style.display = "block";
-    }
+        function showPopup() {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
+        }
 
-    function hidePopup() {
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("popup").style.display = "none";
-    }
+        function hidePopup() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("popup").style.display = "none";
+        }
 
-    function showPopup2(idTugas) {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("update").style.display = "block";
-        // Mengambil elemen input dengan nama 'id'
-        var idInput = document.getElementById('id');
-        // Mengisi nilai ID tugas pada elemen input
-        idInput.value = idTugas;
-    }
+        function showPopup2(idTugas) {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("update").style.display = "block";
+            // Mengambil elemen input dengan nama 'id'
+            var idInput = document.getElementById('id');
+            // Mengisi nilai ID tugas pada elemen input
+            idInput.value = idTugas;
+        }
 
-    function hidePopup2() {
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("update").style.display = "none";
-    }
+        function hidePopup2() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("update").style.display = "none";
+        }
     </script>
 
 </html>

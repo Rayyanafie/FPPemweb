@@ -1,5 +1,5 @@
 <?php
-include ('conn.php');
+include('conn.php');
 session_start();
 if (!isset($_SESSION['ID'])) {
     header("Location: Landing.php");
@@ -107,52 +107,66 @@ if (!isset($_SESSION['ID'])) {
                     </div>
                 </div>
                 <div class="describe-container">
-                    <?php 
-                        // Proses menampilkan data dari database:
-                        // Siapkan query SQL
-                        $idPengguna = $_SESSION['ID'];
-                        $orderBy = isset($_POST['sort']) ? $_POST['sort'] : ''; // Mengambil nilai sort dari form
-                        $categoryFilter = isset($_POST['categoryFilter']) ? $_POST['categoryFilter'] : ''; // Mengambil nilai filter kategori dari form
-
-                        $query = "SELECT tugas.*, kategori.Nama_Kategori
+                    <?php
+                    // Proses menampilkan data dari database:
+                    // Siapkan query SQL
+                    $idPengguna = $_SESSION['ID'];
+                    $orderBy = isset($_POST['sort']) ? $_POST['sort'] : ''; // Mengambil nilai sort dari form
+                    $categoryFilter = isset($_POST['categoryFilter']) ? $_POST['categoryFilter'] : ''; // Mengambil nilai filter kategori dari form
+                    
+                    $query = "SELECT tugas.*, kategori.Nama_Kategori
                                 FROM Tugas
                                 INNER JOIN Kategori ON Tugas.ID_Kategori = Kategori.ID_Kategori
-                                WHERE Tugas.ID_Pengguna = '$idPengguna'";
+                                WHERE Tugas.ID_Pengguna = '$idPengguna' and Status = 0 ";
 
-                        if ($categoryFilter != '') {
+                    if ($categoryFilter != '') {
                         $query .= " AND kategori.ID_Kategori = '$categoryFilter'";
-                        }
+                    }
 
-                        if ($orderBy == 'date') {
+                    if ($orderBy == 'date') {
                         $query .= " ORDER BY tugas.Deadline";
-                        } elseif ($orderBy == 'label') {
+                    } elseif ($orderBy == 'label') {
                         $query .= " ORDER BY tugas.ID_label";
-                        } else {
-                          $query .= " ORDER BY tugas.ID_Tugas"; // Jika tidak ada sort yang dipilih, tampilkan tanpa pengurutan
-                        }
+                    } else {
+                        $query .= " ORDER BY tugas.ID_Tugas"; // Jika tidak ada sort yang dipilih, tampilkan tanpa pengurutan
+                    }
 
-                        $result = mysqli_query(connection(), $query);
+                    $result = mysqli_query(connection(), $query);
                     ?>
                     <table cellspacing="10">
                         <form action="updatestatus.php" method="POST">
                             <div class="grid-container">
-                                <?php while($data = mysqli_fetch_array($result)): ?>
-                                <?php 
-                                $datetime = new DateTime($data['Deadline']);
-                                $tanggal = $datetime->format('Y-m-d');
-                                $jam = $datetime->format('H:i:s');
-                                ?>
-                                <div class="grid-item">
-                                    <h1><?php echo $data['Judul'];  ?> <span class="submit"><input type="checkbox"
-                                                name="taskIds[]" value="<?php echo $data['ID_Tugas'];?>" /></span><span
-                                            class=" fa fa-star">
-                                            <img src="Asset/<?php echo "StarLabel" . $data['ID_label'] .".png" ; ?>"
-                                                alt="">
-                                        </span></h1>
-                                    <div class="category"><?php echo "Kategori : ". $data['Nama_Kategori'];  ?></div>
-                                    <div class="date1"><?php echo $tanggal;  ?></div>
-                                    <div class="date2"><?php echo $jam;  ?></div>
-                                </div>
+                                <?php while ($data = mysqli_fetch_array($result)): ?>
+                                    <?php
+                                    $datetime = new DateTime($data['Deadline']);
+                                    $tanggal = $datetime->format('Y-m-d');
+                                    $jam = $datetime->format('H:i:s');
+                                    $currentDateTime = new DateTime();
+                                    $isLate = ($datetime < $currentDateTime);
+                                    $gridItemClass = ($isLate) ? "grid-item-Late" : "grid-item";
+                                    ?>
+                                    <div class="<?php echo $gridItemClass; ?>">
+                                        <h1>
+                                            <?php echo $data['Judul']; ?>
+                                            <span class="submit">
+                                                <input type="checkbox" name="taskIds[]"
+                                                    value="<?php echo $data['ID_Tugas']; ?>" />
+                                            </span>
+                                            <span class="fa fa-star">
+                                                <img src="Asset/<?php echo "StarLabel" . $data['ID_label'] . ".png"; ?>"
+                                                    alt="">
+                                            </span>
+                                        </h1>
+                                        <div class="category">
+                                            <?php echo "Kategori: " . $data['Nama_Kategori']; ?>
+                                        </div>
+                                        <div class="date1">
+                                            <?php echo $tanggal; ?>
+                                        </div>
+                                        <div class="date2">
+                                            <?php echo $jam; ?>
+                                        </div>
+                                    </div>
                                 <?php endwhile ?>
                             </div>
                             <button type="submit" name="submit">Tandai Sudah Selesai</button>
