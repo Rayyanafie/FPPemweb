@@ -1,5 +1,10 @@
 <?php
 include('conn.php');
+session_start();
+if (!isset($_SESSION['ID'])) {
+    header("Location: Landing.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,9 +65,9 @@ include('conn.php');
                     </a>
                 </li>
                 <li class="logout.php">
-                    <a href="#">
-                        <div class="LogOut">Log Out</div>
-                    </a>
+
+                    <div class="LogOut"><a href="#">Log Out</a></div>
+
                 </li>
             </ul>
         </div>
@@ -86,31 +91,32 @@ include('conn.php');
                         <thead>
                             <th>Judul</th>
                             <th>Deskrpsi</th>
-                            <th>Deadline</th>
+                            <th>Tanggal Selesai</th>
                             <th>Notes</th>
                         </thead>
                         <?php
                         //proses menampilkan data dari database:
                         //siapkan query SQL
-                        $query = "SELECT * FROM manajementugas.history";
+                        $idPengguna = $_SESSION['ID'];
+                        $query = "SELECT * FROM history WHERE ID_Pengguna = '$idPengguna'";
                         $result = mysqli_query(connection(), $query);
                         ?>
 
                         <?php while ($data = mysqli_fetch_array($result)): ?>
-                            <tr>
-                                <td>
-                                    <?php echo $data['ID_History']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $data['ID_Tugas']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $data['Tanggal']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $data['Catatan']; ?>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <?php echo $data['ID_History']; ?>
+                            </td>
+                            <td>
+                                <?php echo $data['ID_Tugas']; ?>
+                            </td>
+                            <td>
+                                <?php echo $data['Tanggal']; ?>
+                            </td>
+                            <td>
+                                <?php echo $data['Catatan']; ?>
+                            </td>
+                        </tr>
                         <?php endwhile ?>
 
 
@@ -137,25 +143,25 @@ include('conn.php');
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var popup = document.querySelector('.popup');
-            var popupDescription = document.getElementById('popup-description');
+    document.addEventListener('DOMContentLoaded', function() {
+        var popup = document.querySelector('.popup');
+        var popupDescription = document.getElementById('popup-description');
 
-            var tableCells = document.querySelectorAll('td');
+        var tableCells = document.querySelectorAll('td');
 
-            tableCells.forEach(function (cell) {
-                cell.addEventListener('click', function () {
-                    var description = this.textContent;
-                    popupDescription.textContent = description;
-                    popup.style.display = 'block';
-                });
-            });
-
-            var closeBtn = document.querySelector('.close-btn');
-            closeBtn.addEventListener('click', function () {
-                popup.style.display = 'none';
+        tableCells.forEach(function(cell) {
+            cell.addEventListener('click', function() {
+                var description = this.textContent;
+                popupDescription.textContent = description;
+                popup.style.display = 'block';
             });
         });
+
+        var closeBtn = document.querySelector('.close-btn');
+        closeBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+        });
+    });
     </script>
 </body>
 

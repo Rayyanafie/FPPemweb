@@ -32,10 +32,9 @@
 
 .header {
   display: flex;
-  /* justify-content: space-around; */
+  justify-content: space-around;
   align-items: center;
   width: 100%;
-  gap: 40px;
 }
 
 .dekor {
@@ -99,7 +98,7 @@
   flex: 1;
   height: 100%;
   width: 100%;
-  overflow-y: overlay;
+  overflow-y: hidden;
 }
 
 .konten {
@@ -110,7 +109,7 @@
 }
 
 .sidebar {
-  width: 300px;
+  width: 250px;
   background-color: rgba(203, 213, 178, 1);
   padding: 20px;
 }
@@ -120,7 +119,7 @@
   text-decoration: none;
   font-family: "Gelasio";
   width: 100%;
-  margin-left: 20px;
+  margin-left: 10px;
   height: 30px;
   font-size: 20px;
 }
@@ -169,10 +168,8 @@ li select option {
 
 .sidebar ul li a:hover {
   border-radius: 12px;
+  width: 100%;
   background: #9aa386;
-}
-.sidebar ul li a:hover a {
-  background: rgb(170, 157, 140);
 }
 
 .sidebar li {
@@ -182,7 +179,9 @@ li select option {
   justify-content: center;
   align-items: center;
 }
-
+li a span {
+  margin-left: 15px;
+}
 .Icon {
   width: 25px;
   height: 25px;
@@ -192,7 +191,7 @@ li select option {
   max-height: 100%;
   display: flex;
   flex-wrap: wrap;
-  padding: 30px;
+  justify-content: space-around;
   overflow-y: auto;
 }
 
@@ -206,7 +205,7 @@ li select option {
   border-radius: 25px;
   text-decoration: none;
   color: black;
-  margin: 20px;
+  margin: 5px 20px;
 }
 
 .describe div h1 {
@@ -216,14 +215,14 @@ li select option {
   text-align: center;
   margin-top: 10px;
 }
-/* awal log out */
-.logout a {
 
+.logout a {
+  display: block;
   padding: 0px;
-  width: 100px;
-  height: 30px;
+  width: 150px;
+  height: 40px;
+  margin-left: 0;
   text-align: center;
-  margin: 0px;
   background-color: rgba(101, 114, 68, 1);
   border-radius: 10px;
   color: white;
@@ -231,6 +230,7 @@ li select option {
 .logout {
   margin-top: 200px;
   margin-left: 30px;
+  padding: 0px;
   display: block;
   bottom: 50px;
   width: 150px;
@@ -240,23 +240,21 @@ li select option {
   line-height: 40px;
   text-align: center;
   color: antiquewhite;
-
 }
-/* akhir log out */
 .isi {
   background-color: #ffff;
-  height: 150px;
+  height: 180px;
   width: 200px;
-  margin: 10px;
+  margin: auto;
 }
 
 .date1,
 .date2 {
   background-color: #dfe8c9;
   height: 23px;
-  width: 130px;
-  /* margin-left: 30px; */
-  /* margin-top: 10px; */
+  width: 90px;
+  margin-left: 30px;
+  margin-top: 10px;
   float: left;
   text-align: center;
   padding-top: 5px;
@@ -265,16 +263,16 @@ li select option {
 .date2 {
   background-color: #657244;
   height: 23px;
-  width: 70px;
-  color: #dfe8c9;
+  margin-left: 10px;
 }
 
-.add-user, .update {
+.adduser,
+.update {
   background-color: #ffff;
   height: 20px;
   width: 80px;
   margin-left: 43px;
-  margin-top: 3px;
+  margin-top: 10px;
   text-align: center;
   border-radius: 5px;
   font-size: 13px;
@@ -286,7 +284,7 @@ li select option {
   background-color: #ffff;
   height: 20px;
   width: 80px;
-  margin-left: 0px;
+  margin-left: 10px;
 }
 
 #overlay {
@@ -452,26 +450,13 @@ li select option {
   appearance: none;
 }
 
-.add-upd{
+.form-update {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(243, 241, 212, 1);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  margin-top: 5px;
-}
-
-.date-buttons{
-  display: flex;
-  flex-direction: column;
-}
-
-.adduser{
-  border-radius: 5px;
-  width: 100px;
-  margin-top: 3px;
-}
-
-.datetime{
-  display: flex;
-  gap: 10px;
-  margin-left: 5px;
 }
