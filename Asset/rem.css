@@ -363,7 +363,8 @@ form button[type="submit"] {
   background-color: #dfe8c9;
   height: 23px;
   width: 150px;
-  margin-top: 5px;
+  margin-top: 15px;
+  margin-left: 35px;
   float: left;
   text-align: center;
   padding-top: 5px;
@@ -426,27 +427,26 @@ form button[type="submit"] {
   overflow-y: auto;
 }
 
-.grid-item {
+.grid-item, .grid-item-Late {
   background-color: #b4c688 !important;
   border: 1px solid #000000;
   padding: 20px;
   text-align: left;
   border-radius: 30px;
-  width: 300px;
-  height: 120px;
+  width: 320px;
+  height: 130px;
 }
 .grid-item-Late{
   background-color: #b3430f !important;
-  border: 1px solid #000000;
-  padding: 20px;
-  text-align: left;
-  border-radius: 30px;
-  width: 300px;
-  height: 120px;
 }
 
-
 .grid-item h1 {
+  display: flex;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.grid-item-Late h1 {
   display: flex;
   font-size: 20px;
   margin-bottom: 10px;
