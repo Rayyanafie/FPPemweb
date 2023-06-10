@@ -25,9 +25,6 @@ if (!isset($_SESSION['ID'])) {
         <div class="sidebar">
             <ul>
                 <li>
-                    <input type="text" name="search" id="search" placeholder="Search">
-                </li>
-                <li>
                     <select name="bulan" id="bulan">
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
@@ -68,15 +65,9 @@ if (!isset($_SESSION['ID'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <img src="Asset/Star 2.png" alt="" class="Icon">
-                        <span class="Description">Priority</span>
-                    </a>
-                </li>
-                <li class="logout.php">
-
-                    <div class="LogOut"><a href="#">Log Out</a></div>
-
+                    <div class="logout">
+                        <a href="logout.php"> Log Out</a>
+                    </div>
                 </li>
             </ul>
         </div>

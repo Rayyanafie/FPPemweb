@@ -64,9 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="sidebar">
                 <ul>
                     <li>
-                        <input type="text" name="search" id="search" placeholder="Search" />
-                    </li>
-                    <li>
                         <select name="bulan" id="bulan">
                             <option value="1">Januari</option>
                             <option value="2">Februari</option>
@@ -95,12 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <img src="Asset/sand-watch1.png" alt="" class="Icon" />
                         <a href="History.php">
                             <span class="Description">History</span>
-                        </a>
-                    </li>
-                    <li>
-                        <img src="Asset/Star2.png" alt="" class="Icon" />
-                        <a href="#">
-                            <span class="Description">Priority</span>
                         </a>
                     </li>
                     <li>
