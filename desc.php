@@ -64,12 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="sidebar">
                 <ul>
                     <li>
-                        <select name="bulan" id="bulan">
-                            <option value="1">Januari</option>
-                            <option value="2">Februari</option>
-                            <option value="3">Maret</option>
-                        </select>
+                        <span class="datetime" id="datetime"></span>
                     </li>
+
                     <li>
                         <img src="Asset/home1.png" alt="" class="Icon" />
                         <a href="home.php">
@@ -144,132 +141,166 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         Delete
                                     </div>
                                     <div>
-                                    <button class="update" onclick="showPopup2('<?php echo $data['ID_Tugas']; ?>', '<?php echo $data['Judul']; ?>', '<?php echo $data['Deskripsi']; ?>', '<?php echo $tanggal; ?>', '<?php echo $jam; ?>', '<?php echo $data['ID_Kategori']; ?>', '<?php echo $data['ID_label']; ?>')">Update</button>
-                                </div>
-                        </div>
-                    <?php endwhile ?>
+                                        <button class="update"
+                                            onclick="showPopup2('<?php echo $data['ID_Tugas']; ?>', '<?php echo $data['Judul']; ?>', '<?php echo $data['Deskripsi']; ?>', '<?php echo $tanggal; ?>', '<?php echo $jam; ?>', '<?php echo $data['ID_Kategori']; ?>', '<?php echo $data['ID_label']; ?>')">Update</button>
+                                    </div>
+                            </div>
+                        <?php endwhile ?>
+                    </div>
+
                 </div>
 
             </div>
+            <div class="garis">
+                <div class="garis2"></div>
+                <div class="garis1"></div>
+            </div>
+        </div>
+        <div id="overlay" onclick="hidePopup()"></div>
+        <div id="overlay" onclick="hidePopup1()"></div>
+        <div id="overlay" onclick="hidePopup2()"></div>
+
+        <div id="popup">
+            <button class="close-button" onclick="hidePopup()">x</button>
+            <form action="desc.php" class="form-addplan" method="POST">
+                <input type="text" name="judul" placeholder="Judul" required>
+                <textarea type="textarea" id="Deskripsi" name="deskripsi" placeholder="Deskripsi Tugas"
+                    required></textarea>
+                <div class="deadline-container">
+                    Deadline :
+                    <input type="date" name="tanggal" />
+                    <input type="time" name="waktu" />
+                </div>
+
+                <div class="category">
+                    <label for="category">Category :</label required>
+                    <select id="category" name="category">
+                        <option value=" "></option>
+                        <option value="C003">Kuliah</option>
+                        <option value="C002">Kantor</option>
+                        <option value="C001">Rumah</option>
+                    </select>
+                </div>
+                <div class="label">
+                    <label for="label">Label :</label>
+                    <select id="label" name="label" required>
+                        <option value=" "></option>
+                        <option value="3">Red</option>
+                        <option value="2">Yellow</option>
+                        <option value="1">Green</option>
+                    </select>
+                </div>
+
+                <button type="submit" name="add">Selesai</button>
+            </form>
+        </div>
+
+        <div id="update">
+            <button class="close-button" onclick="hidePopup2()">x</button>
+
+            <form action="desc.php" class="form-update" method="POST">
+                <h3>Update</h3>
+                <input type="hidden" name="id_pengguna" id="id" value="">
+                <input type="text" name="judul" id="input_judul" placeholder="Judul" value="" required>
+                <textarea type="textarea" id="input_deskripsi" name="deskripsi" placeholder="Deskripsi Tugas"
+                    required></textarea>
+                <div class="deadline-container">
+                    Deadline :
+                    <input type="date" name="tanggal" id="input_tanggal" />
+                    <input type="time" name="waktu" id="input_jam" />
+                </div>
+                <div class="category">
+                    <label for="category">Category :</label required>
+                    <select id="input_category" name="category">
+                        <option value=""></option>
+                        <option value="C003">Kuliah</option>
+                        <option value="C002">Kantor</option>
+                        <option value="C001">Rumah</option>
+                    </select>
+                </div>
+                <div class="label">
+                    <label for="label">Label :</label>
+                    <select id="input_label" name="label" required>
+                        <option value=""></option>
+                        <option value="3">Red</option>
+                        <option value="2">Yellow</option>
+                        <option value="1">Green</option>
+                    </select>
+                </div>
+                <button type="submit" name="update">Simpan</button>
+            </form>
+
 
         </div>
-        <div class="garis">
-            <div class="garis2"></div>
-            <div class="garis1"></div>
-        </div>
-    </div>
-    <div id="overlay" onclick="hidePopup()"></div>
-    <div id="overlay" onclick="hidePopup1()"></div>
-    <div id="overlay" onclick="hidePopup2()"></div>
 
-    <div id="popup">
-        <button class="close-button" onclick="hidePopup()">x</button>
-        <form action="desc.php" class="form-addplan" method="POST">
-            <input type="text" name="judul" placeholder="Judul" required>
-            <textarea type="textarea" id="Deskripsi" name="deskripsi" placeholder="Deskripsi Tugas" required></textarea>
-            <div class="deadline-container">
-                Deadline :
-                <input type="date" name="tanggal" />
-                <input type="time" name="waktu" />
-            </div>
+        <script>
+            function showPopup() {
+                document.getElementById("overlay").style.display = "block";
+                document.getElementById("popup").style.display = "block";
+            }
 
-            <div class="category">
-                <label for="category">Category :</label required>
-                <select id="category" name="category">
-                    <option value=" "></option>
-                    <option value="C003">Kuliah</option>
-                    <option value="C002">Kantor</option>
-                    <option value="C001">Rumah</option>
-                </select>
-            </div>
-            <div class="label">
-                <label for="label">Label :</label>
-                <select id="label" name="label" required>
-                    <option value=" "></option>
-                    <option value="3">Red</option>
-                    <option value="2">Yellow</option>
-                    <option value="1">Green</option>
-                </select>
-            </div>
+            function hidePopup() {
+                document.getElementById("overlay").style.display = "none";
+                document.getElementById("popup").style.display = "none";
+            }
 
-            <button type="submit" name="add">Selesai</button>
-        </form>
-    </div>
+            function showPopup2(idTugas, judul, deskripsi, tanggal, jam, category, label) {
+                document.getElementById("overlay").style.display = "block";
+                document.getElementById("update").style.display = "block";
+                // Mengambil elemen input dengan nama 'id'
+                var idInput = document.getElementById('id');
+                var inputJudul = document.getElementById('input_judul');
+                var inputDeskripsi = document.getElementById('input_deskripsi');
+                var inputTanggal = document.getElementById('input_tanggal');
+                var inputJam = document.getElementById('input_jam');
+                var inputCategory = document.getElementById('input_category');
+                var inputLabel = document.getElementById('input_label');
 
-    <div id="update">
-        <button class="close-button" onclick="hidePopup2()">x</button>
+                // Mengisi nilai pada elemen input
+                idInput.value = idTugas;
+                inputJudul.value = judul;
+                inputDeskripsi.value = deskripsi;
+                inputTanggal.value = tanggal;
+                inputJam.value = jam;
+                inputCategory.value = category;
+                inputLabel.value = label;
+            }
 
-        <form action="desc.php" class="form-update" method="POST">
-            <h3>Update</h3>
-            <input type="hidden" name="id_pengguna" id="id" value="">
-            <input type="text" name="judul" id="input_judul" placeholder="Judul" value="" required>
-            <textarea type="textarea" id="input_deskripsi" name="deskripsi" placeholder="Deskripsi Tugas" required></textarea>
-            <div class="deadline-container">
-                Deadline :
-                <input type="date" name="tanggal" id="input_tanggal" />
-                <input type="time" name="waktu" id="input_jam" />
-            </div>
-            <div class="category">
-                <label for="category">Category :</label required>
-                <select id="input_category" name="category">
-                    <option value=""></option>
-                    <option value="C003">Kuliah</option>
-                    <option value="C002">Kantor</option>
-                    <option value="C001">Rumah</option>
-                </select>
-            </div>
-            <div class="label">
-                <label for="label">Label :</label>
-                <select id="input_label" name="label" required>
-                    <option value=""></option>
-                    <option value="3">Red</option>
-                    <option value="2">Yellow</option>
-                    <option value="1">Green</option>
-                </select>
-            </div>
-            <button type="submit" name="update">Simpan</button>
-    </form>
+            function hidePopup2() {
+                document.getElementById("overlay").style.display = "none";
+                document.getElementById("update").style.display = "none";
+            }
+            function updateDateTime() {
+                var now = new Date();
 
+                var months = [
+                    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+                    'Agustus', 'September', 'Oktober', 'November', 'Desember'
+                ];
 
-    </div>
+                var days = [
+                    'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'
+                ];
 
-    <script>
-        function showPopup() {
-            document.getElementById("overlay").style.display = "block";
-            document.getElementById("popup").style.display = "block";
-        }
+                var month = months[now.getMonth()];
+                var day = days[now.getDay()];
+                var date = now.getDate();
+                var hour = now.getHours();
+                var minute = now.getMinutes();
+                var second = now.getSeconds();
 
-        function hidePopup() {
-            document.getElementById("overlay").style.display = "none";
-            document.getElementById("popup").style.display = "none";
-        }
+                // Tambahkan angka 0 di depan angka yang kurang dari 10
+                hour = hour < 10 ? '0' + hour : hour;
+                minute = minute < 10 ? '0' + minute : minute;
+                second = second < 10 ? '0' + second : second;
 
-        function showPopup2(idTugas, judul, deskripsi, tanggal, jam, category, label) {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("update").style.display = "block";
-        // Mengambil elemen input dengan nama 'id'
-        var idInput = document.getElementById('id');
-        var inputJudul = document.getElementById('input_judul');
-        var inputDeskripsi = document.getElementById('input_deskripsi');
-        var inputTanggal = document.getElementById('input_tanggal');
-        var inputJam = document.getElementById('input_jam');
-        var inputCategory = document.getElementById('input_category');
-        var inputLabel = document.getElementById('input_label');
+                var dateTimeString = day + ', ' + date + ' ' + month + ' ' + now.getFullYear() + ' ' + hour + ':' + minute + ':' + second;
 
-        // Mengisi nilai pada elemen input
-        idInput.value = idTugas;
-        inputJudul.value = judul;
-        inputDeskripsi.value = deskripsi;
-        inputTanggal.value = tanggal;
-        inputJam.value = jam;
-        inputCategory.value = category;
-        inputLabel.value = label;
-    }
+                document.getElementById('datetime').textContent = dateTimeString;
+            }
 
-        function hidePopup2() {
-            document.getElementById("overlay").style.display = "none";
-            document.getElementById("update").style.display = "none";
-        }
-    </script>
+            // Panggil fungsi updateDateTime setiap detik
+            setInterval(updateDateTime, 1000);
+        </script>
 
 </html>
