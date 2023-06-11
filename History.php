@@ -75,7 +75,9 @@ if (!isset($_SESSION['ID'])) {
                 </li>
                 <li class="logout.php">
 
-                    <div class="LogOut"><a href="#">Log Out</a></div>
+                     <div class="logout">
+                        <a href="logout.php"> Log Out</a>
+                    </div>
 
                 </li>
             </ul>
