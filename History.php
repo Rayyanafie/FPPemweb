@@ -65,9 +65,23 @@ if (!isset($_SESSION['ID'])) {
                     </a>
                 </li>
                 <li>
+<<<<<<< HEAD
                     <div class="logout">
                         <a href="logout.php"> Log Out</a>
                     </div>
+=======
+                    <a href="#">
+                        <img src="Asset/Star 2.png" alt="" class="Icon">
+                        <span class="Description">Priority</span>
+                    </a>
+                </li>
+                <li class="logout.php">
+
+                     <div class="logout">
+                        <a href="logout.php"> Log Out</a>
+                    </div>
+
+>>>>>>> 9f54bbc6f09475e2c4cacb266821383ad0681be5
                 </li>
             </ul>
         </div>

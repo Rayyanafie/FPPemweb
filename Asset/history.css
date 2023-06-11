@@ -85,7 +85,7 @@ li select option {
 
 .wrapper .sidebar .logout {
   position: absolute;
-  bottom: 0;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
