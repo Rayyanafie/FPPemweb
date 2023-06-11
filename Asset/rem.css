@@ -455,3 +455,10 @@ form button[type="submit"] {
 .fa-star {
   margin-left: 20px;
 }
+.wrapper .main .info {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  margin: 20px;
+  overflow: auto;
+}
