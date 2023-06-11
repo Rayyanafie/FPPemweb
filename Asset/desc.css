@@ -153,12 +153,26 @@ li select {
   font-size: 20px;
   border-radius: 5px;
   border: none;
-  background-color: rgba(243, 241, 212, 1);
+  background-color:   rgba(243, 241, 212, 1);
   margin: 0 auto;
   margin-left: 10px;
   height: 40px;
   margin-bottom: 30px;
 }
+.datetime{
+  width: 250px;
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  background-color:   rgba(243, 241, 212, 1);
+  margin: 0 auto;
+  margin-left: 10px;
+  height: 40px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
 
 li select option {
   text-align: center;
@@ -199,8 +213,8 @@ li a span {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 300px;
-  width: 250px;
+  height: 400px;
+  width: 350px;
   background-color: rgba(243, 241, 212, 1);
   border-radius: 25px;
   text-decoration: none;
@@ -209,11 +223,13 @@ li a span {
 }
 
 .describe div h1 {
-  font-size: 25px;
+  font-size: 20px;
   font-family: "Gabriela";
   font-weight: normal;
   text-align: center;
   margin-top: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .logout a {
@@ -243,47 +259,45 @@ li a span {
 }
 .isi {
   background-color: #ffff;
-  height: 180px;
-  width: 200px;
+  height: 250px;
+  width: 300px;
   margin: auto;
 }
 
 .date1,
 .date2 {
   background-color: #dfe8c9;
-  height: 23px;
-  width: 90px;
-  margin-left: 30px;
+  height: 30px;
+  width: 100px;
+  margin-left: 70px;
   margin-top: 10px;
   float: left;
   text-align: center;
   padding-top: 5px;
+  font-size: 20px;
 }
 
 .date2 {
   background-color: #657244;
-  height: 23px;
   margin-left: 10px;
 }
 
 .adduser,
 .update {
   background-color: #ffff;
-  height: 20px;
-  width: 80px;
-  margin-left: 43px;
+  height: 30px;
+  width: 100px;
+  margin-left: 70px;
   margin-top: 10px;
   text-align: center;
   border-radius: 5px;
-  font-size: 13px;
+  font-size: 15px;
   cursor: pointer;
   float: left;
 }
 
 .update {
   background-color: #ffff;
-  height: 20px;
-  width: 80px;
   margin-left: 10px;
 }
 

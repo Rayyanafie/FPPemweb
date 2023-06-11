@@ -1,10 +1,10 @@
 <?php
-include ('conn.php');
+include('conn.php');
 session_start();
 
 if (!isset($_SESSION['ID'])) {
-  header("Location: Landing.php");
-  exit;
+    header("Location: Landing.php");
+    exit;
 }
 $idPengguna = $_SESSION['ID'];
 
@@ -88,21 +88,21 @@ if (isset($_POST['update-profile'])) {
                 </div>
                 <button class="profile" onclick="showPopup()">
                     <span class="profile-text">Profile</span>
-                    <?php 
+                    <?php
                     $nama_gambar = '';
 
                     $query = "SELECT namaGambar FROM gambar WHERE ID_Pengguna = '$idPengguna'"; // Ganti dengan query yang sesuai untuk mengambil nama gambar 
                     $result = mysqli_query(connection(), $query);
-                
+
                     if (mysqli_num_rows($result) > 0) {
-                    // Foto profil telah diunggah, gunakan foto tersebut
-                    $row = mysqli_fetch_assoc($result);
-                    $nama_gambar = $row['namaGambar'];
+                        // Foto profil telah diunggah, gunakan foto tersebut
+                        $row = mysqli_fetch_assoc($result);
+                        $nama_gambar = $row['namaGambar'];
                     } else {
-                    // Foto profil tidak ada, gunakan foto default
-                    $nama_gambar = 'defaultprofile.jpg'; // Ganti dengan nama file foto abu-abu default yang sesuai
+                        // Foto profil tidak ada, gunakan foto default
+                        $nama_gambar = 'defaultprofile.jpg'; // Ganti dengan nama file foto abu-abu default yang sesuai
                     }
-                
+
                     // Tampilkan foto profil menggunakan tag <img>
                     echo "<img src='Asset/" . $nama_gambar . "' alt='Foto Profil'" . "class='profile-image'/>";
                     ?>
@@ -160,12 +160,14 @@ if (isset($_POST['update-profile'])) {
             <h3>Profile</h3>
             <div class="profile-header">
                 <?php echo "<img src='Asset/" . $nama_gambar . "' alt='Foto Profil'/>"; ?>
-                <span class="username"> <?php
-                $query = "SELECT * FROM pengguna WHERE ID_Pengguna = '$idPengguna'";
-                $result = mysqli_query(connection(),$query);
-                $data =  mysqli_fetch_array($result);
-                echo $data['Username'];
-                ?></span>
+                <span class="username">
+                    <?php
+                    $query = "SELECT * FROM pengguna WHERE ID_Pengguna = '$idPengguna'";
+                    $result = mysqli_query(connection(), $query);
+                    $data = mysqli_fetch_array($result);
+                    echo $data['Username'];
+                    ?>
+                </span>
             </div>
             <form action="home.php" method="POST" enctype="multipart/form-data">
                 <input type="file" name="gambar" />
@@ -184,15 +186,15 @@ if (isset($_POST['update-profile'])) {
         </div>
     </div>
     <script>
-    function showPopup() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("popup").style.display = "block";
-    }
+        function showPopup() {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
+        }
 
-    function hidePopup() {
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("popup").style.display = "none";
-    }
+        function hidePopup() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("popup").style.display = "none";
+        }
     </script>
 </body>
 

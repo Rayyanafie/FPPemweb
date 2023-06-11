@@ -363,7 +363,8 @@ form button[type="submit"] {
   background-color: #dfe8c9;
   height: 23px;
   width: 150px;
-  margin-top: 5px;
+  margin-top: 15px;
+  margin-left: 35px;
   float: left;
   text-align: center;
   padding-top: 5px;
@@ -426,25 +427,18 @@ form button[type="submit"] {
   overflow-y: auto;
 }
 
-.grid-item {
+.grid-item, .grid-item-Late {
   background-color: #b4c688 !important;
   border: 1px solid #000000;
   padding: 20px;
   text-align: left;
   border-radius: 30px;
-  width: 300px;
-  height: 120px;
+  width: 320px;
+  height: 130px;
 }
 .grid-item-Late{
   background-color: #b3430f !important;
-  border: 1px solid #000000;
-  padding: 20px;
-  text-align: left;
-  border-radius: 30px;
-  width: 300px;
-  height: 120px;
 }
-
 
 .grid-item h1 {
   display: flex;
@@ -452,6 +446,32 @@ form button[type="submit"] {
   margin-bottom: 10px;
 }
 
+.grid-item-Late h1 {
+  display: flex;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
 .fa-star {
   margin-left: 20px;
+}
+.wrapper .main .info {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  margin: 20px;
+  overflow: auto;
+}
+.datetime{
+  width: 250px;
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+  background-color:   rgba(243, 241, 212, 1);
+  margin: 0 auto;
+  margin-left: 10px;
+  height: 40px;
+  margin-bottom: 30px;
+  text-align: center;
 }

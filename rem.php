@@ -31,14 +31,7 @@ if (!isset($_SESSION['ID'])) {
             <div class="sidebar">
                 <ul>
                     <li>
-                        <input type="text" name="search" id="search" placeholder="Search" />
-                    </li>
-                    <li>
-                        <select name="bulan" id="bulan">
-                            <option value="1">Januari</option>
-                            <option value="2">Februari</option>
-                            <option value="3">Maret</option>
-                        </select>
+                        <span class="datetime" id="datetime"></span>
                     </li>
                     <li>
                         <img src="Asset/home1.png" alt="" class="Icon" />
@@ -62,12 +55,6 @@ if (!isset($_SESSION['ID'])) {
                         <img src="Asset/sand-watch1.png" alt="" class="Icon" />
                         <a href="History.php">
                             <span class="Description">History</span>
-                        </a>
-                    </li>
-                    <li>
-                        <img src="Asset/Star2.png" alt="" class="Icon" />
-                        <a href="#">
-                            <span class="Description">Priority</span>
                         </a>
                     </li>
                     <li>
@@ -181,5 +168,38 @@ if (!isset($_SESSION['ID'])) {
         </div>
     </div>
 </body>
+<script>
+    function updateDateTime() {
+        var now = new Date();
+
+        var months = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+            'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
+        var days = [
+            'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'
+        ];
+
+        var month = months[now.getMonth()];
+        var day = days[now.getDay()];
+        var date = now.getDate();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+
+        // Tambahkan angka 0 di depan angka yang kurang dari 10
+        hour = hour < 10 ? '0' + hour : hour;
+        minute = minute < 10 ? '0' + minute : minute;
+        second = second < 10 ? '0' + second : second;
+
+        var dateTimeString = day + ', ' + date + ' ' + month + ' ' + now.getFullYear() + ' ' + hour + ':' + minute + ':' + second;
+
+        document.getElementById('datetime').textContent = dateTimeString;
+    }
+
+    // Panggil fungsi updateDateTime setiap detik
+    setInterval(updateDateTime, 1000);
+</script>
 
 </html>
