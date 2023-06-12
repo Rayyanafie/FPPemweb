@@ -73,7 +73,7 @@ if (isset($_POST['update-profile'])) {
 
 <body>
     <div class="container">
-        <div class="garis">
+        <div class="garis" style="top:0">
             <div class="garis1"></div>
             <div class="garis2"></div>
             <div class="header">
@@ -110,7 +110,8 @@ if (isset($_POST['update-profile'])) {
             </div>
         </div>
 
-        <div class="reminder-history-describe">
+        <div class="isi">
+        <div class="reminder-history-describe1">
             <a href="desc.php" class="describe">
                 <div>
                     <h1><span>D</span>escribe</h1>
@@ -120,7 +121,7 @@ if (isset($_POST['update-profile'])) {
                 <img src="Asset/gambar3.png" alt="gambar3" />
             </a>
         </div>
-        <div class="reminder-history-describe">
+        <div class="reminder-history-describe2">
             <a href="rem.php" class="reminder">
                 <div>
                     <h1><span>R</span>eminder</h1>
@@ -146,7 +147,8 @@ if (isset($_POST['update-profile'])) {
                 </div>
             </a>
         </div>
-        <div class="garis">
+        </div>
+        <div class="garis" style="position:fixed; bottom:0">
             <div class="garis2"></div>
             <div class="garis1"></div>
         </div>
