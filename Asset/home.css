@@ -6,10 +6,9 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  height: 96vh;
 }
 
 .garis {
@@ -33,9 +32,10 @@ body {
 
 .header {
   display: flex;
-  justify-content: space-around;
   align-items: center;
   width: 100%;
+  gap: 20px;
+  justify-content: center;
 }
 
 .dekor {
@@ -97,17 +97,31 @@ body {
   border-radius: 50%;
 }
 
-.reminder-history-describe {
+.reminder-history-describe1,  .reminder-history-describe2{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 100%;
+  gap: 180px;
+
+}
+
+.reminder-history-describe2{
+  margin-top: 20px;
+}
+
+.isi{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
 }
 
 .describe {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   height: 270px;
   width: 1350px;
   background-color: rgba(243, 241, 212, 1);
