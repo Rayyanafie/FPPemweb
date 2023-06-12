@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="container">
-        <div class="garis">
+        <div class="garis" style="top:0">
             <div class="garis1"></div>
             <div class="garis2"></div>
         </div>
@@ -128,22 +128,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </h1>
                                 <div class="isi">
                                     <?php echo $data['Deskripsi']; ?>
-                                </div>
-                                <div class="date1">
-                                    <?php echo $tanggal; ?>
-                                </div>
-                                <div class="date2">
-                                    <?php echo $jam; ?>
-                                </div>
-                                <button class="adduser"
-                                    onclick="window.location.href='delete.php?idtugas=<?php echo $data['ID_Tugas']; ?>'">
-                                    <div class="adduser-text">
-                                        Delete
+                                </div class="date-buttons">
+                                    <div class="datetime">
+                                        <div class="date1">
+                                            <?php echo $tanggal; ?>
+                                        </div>
+                                        <div class="date2">
+                                            <?php echo $jam; ?>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <button class="update"
-                                            onclick="showPopup2('<?php echo $data['ID_Tugas']; ?>', '<?php echo $data['Judul']; ?>', '<?php echo $data['Deskripsi']; ?>', '<?php echo $tanggal; ?>', '<?php echo $jam; ?>', '<?php echo $data['ID_Kategori']; ?>', '<?php echo $data['ID_label']; ?>')">Update</button>
+                                    <div class="add-upd">
+                                        <button class="adduser"
+                                        onclick="window.location.href='delete.php?idtugas=<?php echo $data['ID_Tugas']; ?>'">
+                                        <div class="adduser-text">
+                                            Delete
+                                        </div>
+                                        <div>
+                                            <button class="update"
+                                                onclick="showPopup2('<?php echo $data['ID_Tugas']; ?>', '<?php echo $data['Judul']; ?>', '<?php echo $data['Deskripsi']; ?>', '<?php echo $tanggal; ?>', '<?php echo $jam; ?>', '<?php echo $data['ID_Kategori']; ?>', '<?php echo $data['ID_label']; ?>')">Update</button>
+                                        </div>
                                     </div>
+                                 </div>
                             </div>
                         <?php endwhile ?>
                     </div>
@@ -151,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
             </div>
-            <div class="garis">
+            <div class="garis" style="position: fixed; bottom:0">
                 <div class="garis2"></div>
                 <div class="garis1"></div>
             </div>
