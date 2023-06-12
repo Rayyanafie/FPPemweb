@@ -32,9 +32,10 @@
 
 .header {
   display: flex;
-  justify-content: space-around;
   align-items: center;
   width: 100%;
+  gap: 40px;
+  margin-left: 100px;
 }
 
 .dekor {
@@ -196,6 +197,7 @@ li a span {
   flex-wrap: wrap;
   justify-content: space-around;
   overflow-y: auto;
+  margin-top: 30px;
 }
 
 .describe {
