@@ -21,78 +21,63 @@ if (!isset($_SESSION['ID'])) {
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="sidebar">
-            <ul>
-                <li>
-                    <select name="bulan" id="bulan">
-                        <option value="1">Januari</option>
-                        <option value="2">Februari</option>
-                        <option value="3">Maret</option>
-                        <option value="4">April</option>
-                        <option value="5">Mei</option>
-                        <option value="6">Juni</option>
-                        <option value="7">Juli</option>
-                        <option value="8">Agustus</option>
-                        <option value="9">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
-                    </select>
-                </li>
-                <li>
-                    <a href="index.php">
-                        <img src="Asset/home (3) 1.png" alt="" class="Icon">
-                        <span class="Description">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="desc.php">
-                        <img src="Asset/writing 1.png" alt="" class="Icon">
-                        <span class="Description">Description</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="rem.php">
-                        <img src="Asset/notification (1) 1.png" alt="" class="Icon">
-                        <span class="Description">Reminder</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo "History.php"; ?>">
-                        <img src="Asset/sand-watch 1.png" alt="" class="Icon">
-                        <span class="Description">History</span>
-                    </a>
-                </li>
-                <li>
-                    <div class="logout">
-                        <a href="logout.php"> Log Out</a>
-                    </div>
-                </li>
-            </ul>
+    <div class="container">
+        <div class="garis">
+            <div class="garis1"></div>
+            <div class="garis2"></div>
         </div>
-        <div class="main">
-            <div class="garis">
-                <div class="garis1"></div>
-                <div class="garis2"></div>
+        <div class="konten-container">
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <span class="datetime" id="datetime"></span>
+                    </li>
+                    <li>
+                        <img src="Asset/home1.png" alt="" class=" Icon" />
+                        <a href="index.php">
+                            <span class="Description">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <img src="Asset/writing1.png" alt="" class="Icon" />
+                        <a href="desc.php">
+                            <span class="Description">Description</span>
+                        </a>
+                    </li>
+                    <li>
+                        <img src="Asset/notification1.png" alt="" class="Icon" />
+                        <a href="rem.php">
+                            <span class="Description">Reminder</span>
+                        </a>
+                    </li>
+                    <li>
+                        <img src="Asset/sand-watch1.png" alt="" class="Icon" />
+                        <a href="#">
+                            <span class="Description">History</span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="logout">
+                            <a href="logout.php">Log Out</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div>
+            <div class="konten">
                 <div class="header">
-                    <div class="dekor">
-                    </div>
                     <h1>History</h1>
                     <div class="dekor">
                         <div class="lingkaran"></div>
                         <div class="garis4"></div>
                     </div>
                 </div>
-                <div class="info">
+                <div class="describe-container">
                     <table>
                         <thead>
-                            <th>ID Tugas</th>
                             <th>Judul</th>
-                            <th>Tanggal Selesai</th>
-                            <th>Notes</th>
+                            <th>Deskrpsi</th>
+                            <th>Deadline</th>
+                            <th>Finished</th>
                         </thead>
                         <?php
                         //proses menampilkan data dari database:
@@ -101,39 +86,35 @@ if (!isset($_SESSION['ID'])) {
                         $query = "SELECT *from history where ID_Pengguna ='$idPengguna'";
                         $result = mysqli_query(connection(), $query);
                         ?>
+                        <tbody>
+                            <?php while ($data = mysqli_fetch_array($result)): ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $data['ID_History']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $data['Judul']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $data['Tanggal']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $data['Catatan']; ?>
+                                    </td>
+                                </tr>
+                            <?php endwhile ?>
 
-                        <?php while ($data = mysqli_fetch_array($result)): ?>
-                            <tr>
-                                <td>
-                                    <?php echo $data['ID_History']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $data['Judul']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $data['Tanggal']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $data['Catatan']; ?>
-                                </td>
-                            </tr>
-                        <?php endwhile ?>
-
-
+                        </tbody>
                     </table>
-                </div>
 
-                <div class="garis" style="position: fixed; bottom: 0;">
-                    <div class="garis2"></div>
-                    <div class="garis1"></div>
                 </div>
             </div>
         </div>
+        <div class="garis">
+            <div class="garis2"></div>
+            <div class="garis1"></div>
+        </div>
     </div>
-
-    </div>
-
-
     <div class="popup">
         <div class="popup-content">
             <span class="close-btn">&times;</span>
@@ -162,6 +143,37 @@ if (!isset($_SESSION['ID'])) {
                 popup.style.display = 'none';
             });
         });
+        function updateDateTime() {
+            var now = new Date();
+
+            var months = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+                'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+
+            var days = [
+                'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'
+            ];
+
+            var month = months[now.getMonth()];
+            var day = days[now.getDay()];
+            var date = now.getDate();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+
+            // Tambahkan angka 0 di depan angka yang kurang dari 10
+            hour = hour < 10 ? '0' + hour : hour;
+            minute = minute < 10 ? '0' + minute : minute;
+            second = second < 10 ? '0' + second : second;
+
+            var dateTimeString = day + ', ' + date + ' ' + month + ' ' + now.getFullYear() + ' ' + hour + ':' + minute + ':' + second;
+
+            document.getElementById('datetime').textContent = dateTimeString;
+        }
+
+        // Panggil fungsi updateDateTime setiap detik
+        setInterval(updateDateTime, 1000);
     </script>
 </body>
 
